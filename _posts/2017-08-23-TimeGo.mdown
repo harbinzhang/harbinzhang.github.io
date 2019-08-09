@@ -1,0 +1,73 @@
+---
+layout:     post
+title:      TimeGo
+author:     Haibin
+tags: 		Android Time
+subtitle:  	self-interested time tracking APP
+category:  projects
+---
+
+This is an Android APP published on Google Play.  
+You can search for it by the keyword "TimeGo".  
+
+<a href="https://play.google.com/store/apps/details?id=com.timego.harbin.timego&hl=en" style="color: rgb(0,102,204)">Or you can click here : )</a>  
+<br>
+Update(4/9): The App has been blocked because of *Violation of Usage of Android Advertising ID policy*. I'm busy working with other stuff currently, I will update a new App with qualified policy later.
+
+## I built this APP is because there isn't a right APP to solve my problem.
+#### Why is this a bad design?
+This is one of the most common APPs about time tracking in google play.
+<div style="text-align:center"><img src= "{{ "/img/projects/timego/atimelogger.png" | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+You clicked an icon, the timer starts recording. When you finished your activity, you clicked the stop button. Then this activity and its duration has been recorded.  
+But there is a common problem: I always forget to start or end an activity recording, so the time tracking is not precise, and therefore it is annoying.
+
+## How to solve this problem?
+Raised an idea from "time billing" of Alexander Alexandrovich Lyubishchev.  
+
+The key is to record the time cost of each activity after the things done or at a certain moment. In this way, the time tracking is easier and more precise.
+
+## What does it look like?  
+- The adding fragment screen is like:  
+
+<div style="text-align:center"><img src= "{{ "/img/projects/timego/add.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+And I provided the emotion options for users, which can be defined as an efficiency options. Because I think 100% efficiency in 30 minutes is still much better than 10% efficiency in 3 hours.  
+So, these options can help users to find out during which time slot they can get a better performance.  
+
+- The dash board: 
+This is a pie chart. Day, week and month options are provided.
+<div style="text-align:center"><img src= "{{ "/img/projects/timego/dash.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+This is a line chart. Users can see how the time costing trends they spent in the last week.
+<div style="text-align:center"><img src= "{{ "/img/projects/timego/dashline.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<br>  
+
+- Intro to App  
+To let it used easier for users, provide intro-to-APP part. It shows when the user open TimeGo in the first time, Or when users click "help" button.
+
+
+<div style="text-align:center"><img src= "{{ "/img/projects/timego/intro.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+
+
+- Feedback  
+Provide feedback choice for users, and users can talk their ideas with me. I think this communication way is better for us to talk with each other, to have a deeper understanding about what this product shoule be.  
+
+<div style="text-align:center"><img src= "{{ "/img/projects/timego/feedback.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+
+
+- The Accounts  
+TimeGo provided online database based on the Google firebase to sync data from different platform.  
+So, we have Sign in option:
+
+<div style="text-align:center"><img src= "{{ "/img/projects/timego/signin.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+And Sign up option:
+<div style="text-align:center"><img src= "{{ "/img/projects/timego/signup.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+
+
+## Summary  
+I love this APP, I always think of ways to improve it.  
+And I'm still working on it. I have so many ideas which I want to implment. But the time is limited, I need to get focused on the most essential thing.
+ <div style="text-align:center"><img src= "{{ "/img/projects/timego/todo.png " | prepend: site.baseurl }}" style="width: 80%; margin-left: 5%; margin-right: 5%;"></div>
+Hope it may help your life well. : )
