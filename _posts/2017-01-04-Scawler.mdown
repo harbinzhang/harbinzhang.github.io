@@ -1,0 +1,55 @@
+---
+layout:     post
+title:      Info from Linkedin
+author:     Haibin
+tags: 		Crawler Multi-process MapReduce
+subtitle:  	a web crawler scanning data from Linkedin.
+category:  projects
+---
+
+I want to find out the relationship between linkedin users and the possibility they are willing to help me to push resume. Then I can get suggestions from this system about which user would be better choice for me to link in.
+
+
+
+# Part 1
+Multi-process scawlers, sending jobs to master, and master assigned jobs to workers. Save users profile into mongodb. MapReduce with mongodb to analyse data.
+
+<div style="text-align:center"><img src= "{{ "/img/projects/scawler/initial_start.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+
+### Initial state
+At first, "python master.py" to start master process, and master will build workers based on the number of accounts it received. Each worker would receive an account and its password. When worker finished login into the linkedin account, it sent the "ready" message to the master.
+Workers use phantomJS to access linkedin user profiles.
+<div style="text-align:center"><img src= "{{ "/img/projects/scawler/ready.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+
+### pre-load to remove duplication
+use user_id to determine whether the current user has been dealed or not. Pre-load user-profile page, if user_id already exists in database, the current user would be skipped.
+<div style="text-align:center"><img src= "{{ "/img/projects/scawler/working.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+
+### Shutdown
+You can send "shutdown" signal to the master.
+<div style="text-align:center"><img src= "{{ "/img/projects/scawler/shutdown.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+
+
+### fault-tolerance
+When number of errors reached the bar, the master will shutdown workers, and backup urls in the master to disk, and record current information into logfile to analyse.
+<div style="text-align:center"><img src= "{{ "/img/projects/scawler/fault_restart.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+
+### database
+Record these information about users:  
+- url_id(as the primary key)  
+- name, current_company, locality, edu, title, industry  
+- skills, backgrounds(These include several sub contents)  
+<div style="text-align:center"><img src= "{{ "/img/projects/scawler/eg_db.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
+<br>
+
+
+# Problem
+It seems that Linkedin constrains accounts when the same IP visited its website too many times. I extended the time delay, but it cannot work.  
+I'm trying to use different IP proxy from IP pool to visit different users profile.  
+  
+I'm still working on it.

@@ -1,0 +1,69 @@
+---
+layout:     post
+title:      Team Projects
+author:     Haibin
+tags:		kafka microservice tungsten
+subtitle:  	summaries of some team projects
+category:  projects
+---
+## Start
+These are team projects of my company, so I cannot provide detailed data, but some experience and suggestion. And our company encourages us to write blogs to share technical problems we met and how we solved them.
+
+## Tenant Filter
+1. The Tenant Filter is to filter out disabled tenants from source side ---- tungsten(db replicator).  
+2. The result is great: with this feature and other newly added filters, the following pipeline latency has been decreased from several minutes to under 1s.
+3. The idea is from my manager, I just implement his idea.  
+
+### key words:
+1. cache.refresh(non-blocking).  
+<a href="https://github.com/google/guava/wiki/CachesExplained" style="color: rgb(0,102,204)">Guava cache</a> 
+2. cache size: only one key. The key is a `final static String name`, while the value is a `Set<String> activeTenants`.  
+<a href="https://github.com/google/guava/issues/872" style="color: rgb(0,102,204)">Only one key in the cache may be faster here.</a>
+<br>
+
+## TopicMessage API
+An API can GET/POST record from/to a specific position(topic, partition, offset) in Kafka.
+<div style="text-align:center"><img src= "{{ "/img/projects/team_projects/topic_message_api.png" | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;">The basic idea</div>
+
+### Some trade-off
+To implement this feature, we need to Serializer/Deserializer record to/from kafka. And different topic has different Serializer/Deserializer.  
+So there are several ways to handle this problem. Trade-off.
+- TOPIC Mapping:  
+1. Logic topic name (user input) -> physical topic name(topic name in kafka).  
+e.g. For Notification service, the topic name in kafka is "NotificationV2", and we also have related topic name like "NotificationForDC" in kafka.
+2. Topic name -> Kafka record deserializer.  
+e.g. we have "NotificationInstanceDeserializer" for Notification. It's needed for API to decode record.  
+
+#### Details  
+For the second problem, we do have some trade-off:  
+*Topic name to Kafka record deserializer*
+- *no mapping*: not doable
+- *1-to-1 mapping*: like "NotificationV2" -> "NotificationInstanceDeserializer" and "NotificationForDC" -> "NotificationInstanceDeserializer" are different entries in mapping.
+    - Pros: 
+        - easy to implement.  
+        - support Logic topic name to physical one. DIY  
+        - restrict user input.  
+    - Cons:
+        - need to maintain this mapping every time topic or deserializer updates.  
+        like we have "NotificationForDC" and then we have "RepartitionedNotificationForDC", we need to update the transformer accordingly if we want to support all these topics.   
+        - need to initial mapping entries as many as topics we want to support.   
+- *many-to-1 mapping*: like "NotificationV2" and "NotificationForDC" are considered "Notification" service, therefore handled with "NotificationInstanceDeserializer".  
+    - Pros:
+        - no need to maintain it when new topics created or topic name modified.  
+        - easy to understand.   
+        - clean code.  
+    - Cons:
+        - cannot handle confusing topic names. Like "BussinessEventNotification".   
+        - still support for some deprecated topics. Like "Notification".  
+- *service-to-deserializer mapping*: i.e. Users need to specify which service their topic belongs to. In this way, users need to provide 4 parameters: service, topic, partition and offset.  
+    - Pros:  
+        - Pros of "many-to-1" mapping  
+        - can handle confused topic names.  
+        - reasonable and safe: when POST, users should know which service they want to do POST, to change the record data.  
+    - Cons:  
+        - more parameters for users to input.  
+
+#### Conclusion
+For this API, from beginning, I got several different ideas from different people even for the same part, so I changed my PR back and forth but still cannot meets all expectation. The final design was made until I provided a design doc with pros and cons to them and let them discuss.  
+So from this experience, it would be better if we can provide a write-up first.  
+<br>The PR finally got merged with 142 reviews.
