@@ -1,0 +1,159 @@
+{
+  
+
+    "link-2019-06-01-github": {
+      "title": "Github",
+      "content"	 : "# My github HarbinZhang  To Github : )   ",
+      "url": "/link/2019/06/01/github/",
+      "author": "Haibin",
+      "categories": "link"
+    }
+    ,
+  
+
+    "projects-2019-03-01-team-projects": {
+      "title": "Team Projects",
+      "content"	 : "## StartThese are team projects of my company, so I cannot provide detailed data, but some experience and suggestion. And our company encourages us to write blogs to share technical problems we met and how we solved them.## Tenant Filter1. The Tenant Filter is to filter out disabled tenants from source side ---- tungsten(db replicator).  2. The result is great: with this feature and other newly added filters, the following pipeline latency has been decreased from several minutes to under 1s.3. The idea is from my manager, I just implement his idea.  ### key words:1. cache.refresh(non-blocking).  Guava cache 2. cache size: only one key. The key is a `final static String name`, while the value is a `Set activeTenants`.  Only one key in the cache may be faster here.## TopicMessage APIAn API can GET/POST record from/to a specific position(topic, partition, offset) in Kafka.The basic idea### Some trade-offTo implement this feature, we need to Serializer/Deserializer record to/from kafka. And different topic has different Serializer/Deserializer.  So there are several ways to handle this problem. Trade-off.- TOPIC Mapping:  1. Logic topic name (user input) -&gt; physical topic name(topic name in kafka).  e.g. For Notification service, the topic name in kafka is &quot;NotificationV2&quot;, and we also have related topic name like &quot;NotificationForDC&quot; in kafka.2. Topic name -&gt; Kafka record deserializer.  e.g. we have &quot;NotificationInstanceDeserializer&quot; for Notification. It&#39;s needed for API to decode record.  #### Details  For the second problem, we do have some trade-off:  *Topic name to Kafka record deserializer*- *no mapping*: not doable- *1-to-1 mapping*: like &quot;NotificationV2&quot; -&gt; &quot;NotificationInstanceDeserializer&quot; and &quot;NotificationForDC&quot; -&gt; &quot;NotificationInstanceDeserializer&quot; are different entries in mapping.    - Pros:         - easy to implement.          - support Logic topic name to physical one. DIY          - restrict user input.      - Cons:        - need to maintain this mapping every time topic or deserializer updates.          like we have &quot;NotificationForDC&quot; and then we have &quot;RepartitionedNotificationForDC&quot;, we need to update the transformer accordingly if we want to support all these topics.           - need to initial mapping entries as many as topics we want to support.   - *many-to-1 mapping*: like &quot;NotificationV2&quot; and &quot;NotificationForDC&quot; are considered &quot;Notification&quot; service, therefore handled with &quot;NotificationInstanceDeserializer&quot;.      - Pros:        - no need to maintain it when new topics created or topic name modified.          - easy to understand.           - clean code.      - Cons:        - cannot handle confusing topic names. Like &quot;BussinessEventNotification&quot;.           - still support for some deprecated topics. Like &quot;Notification&quot;.  - *service-to-deserializer mapping*: i.e. Users need to specify which service their topic belongs to. In this way, users need to provide 4 parameters: service, topic, partition and offset.      - Pros:          - Pros of &quot;many-to-1&quot; mapping          - can handle confused topic names.          - reasonable and safe: when POST, users should know which service they want to do POST, to change the record data.      - Cons:          - more parameters for users to input.  #### ConclusionFor this API, from beginning, I got several different ideas from different people even for the same part, so I changed my PR back and forth but still cannot meets all expectation. The final design was made until I provided a design doc with pros and cons to them and let them discuss.  So from this experience, it would be better if we can provide a write-up first.  The PR finally got merged with 142 reviews.",
+      "url": "/projects/2019/03/01/team-projects/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2018-12-01-burrow-rainbow": {
+      "title": "Burrow Rainbow",
+      "content"	 : "## Burrow Rainbow- The original [Burrow](https://github.com/linkedin/Burrow) is a Lag monitoring service for Apache Kafka. - In Zuora, [Burrow Rainbow](https://github.com/HarbinZhang/goRainbow) provides more visibility for other teams who are using our Kafka service.     - Producer status: for each producer, how many records produced to each partition.    - Consumer status: for each consumer, which partition(s) are hosted and how many records consumed per minute.    - Lag: total lag in the whole consumer group and partition level lag.  ### What is Burrow from LinkedinBurrow is a monitoring companion for Apache Kafka that provides consumer lag checking as a service without the need for specifying thresholds. It monitors committed offsets for all consumers and calculates the status of those consumers on demand. An HTTP endpoint is provided to request status on demand, as well as provide other Kafka cluster information. There are also configurable notifiers that can send status out via email or HTTP calls to another service.   Here is my inspection of Burrow source code Burrow Inspection  ### What is my workIn Zuora, I am responsible for Burrow service, including Dockerfile, ansible-quasar, Jenkinsfile for CICD, goRainbow and wavefront dashboard.  The main work is about goRainbow, which pulls information from Burrow, translates it into metrics, and sends it to the wavefront. I implemented push-model rainbow(waiting for Burrow message) at first, but got some problem, the Burrow notifier is not stable all the time. After discussed with teammates, I implemented pull-model rainbow(activly pull information from Burrow) and now it works much better.  ### LinkgoRainbow is an open source project, I am still working on enhancing it.  goRainbow github1. Each `consumer handler` is responsible for one consumer and has one specific url(`burrow/{cluster}/{consumer}`) to pull the consumer info from Burrow.2. `alive consumers maintainer` checks Burrow periodically to see whether there is a new consumer or not. If so, it would raise a new `consumer handler` for the new consumer.3. `consumer handler` would deregister itself in `alive consumers maintainer` when its consumer is not valid any longer.  ### Features worthy mention1. Heath-check: It provides health-check HTTP service so that AWS can auto restart Burrow-goRainbow when the service is unavailable.2. Dynamic metrics sending:   1. It sends partition level metrics when lag exists(lag &gt; 0), otherwise doesn&#39;t send. It saves a lot traffic.   2. It guarantees every metric ends with 0, which behaves better in wavefront.   3. It sends metrics per 30s when metrics change and per 60s for unchanged metrics.  3. Traffic saving calculation: (saves at least 85% data traffic)  Until March 2019, we have:   1. 25 consumer groups are using our Kafka service.      2. 64 partitions for each topic.      3. Basically, 3 metrics for each partition level lag. (offset, startOffset, endOffset).  - Without dynamic metrics sending, we should have sent 4950 metrics each time.  (totalLagMetrics(1) + maxLagPartitionMetrics(5) + allPartitionsMetrics(64*3)) * consumers(25) = 4950 metrics each time. - With dynamic metrics sending, we should have sent 726 metrics each time.  (totalLagMetrics(1) + maxLagPartitionMetrics(5) + allPartitionsMetrics(64*3)) * consumersWithLag(3) +    (totalLagMetrics(1) + maxLagPartitionMetrics(5)) * consumersWithoutLag(22) = 726- In conclusion, we can save at least 85% data traffic for consumer lag metrics, because consumers are not having lag all the time and only partitions with lag would send metrics.### LinkMore details",
+      "url": "/projects/2018/12/01/burrow-rainbow/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2018-10-01-zookeeper-automation": {
+      "title": "Zookeeper Automation",
+      "content"	 : "## zookeeper automationBasically, it&#39;s like if you have 5 machines, how to generate an unique id on their own.  From Raft, we can elect a leader first, and then determine Id for each machine.  #### ButUsing Raft to elect a leader is complecated. For this case, we may have a much easier solution.  we can let machines follow one common rule to decide which Id they should get.  In my implementaion, I choose their IP as the common key, and their ID can be determined by their IP order in the sorted IPs.### LinkYou may check logic charts and more details via this link.More details",
+      "url": "/projects/2018/10/01/zookeeper-automation/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2018-09-01-food-order-bot": {
+      "title": "Food Order Bot",
+      "content"	 : "## Food Order BotIt&#39;s a slack bot, The reason I wrote this bot is because I don&#39;t want to manually remind other engineers to place their food order. Also, I&#39;m not good at choosing a tasty restaurant.  So, This bot would remind all engineers in food channel to order and also remind people who calls the bot to close the food order.   Besides, the bot would send a food review after lunch to gather reviews from engineer. In this way, we may get suggestions which restaurant is more fit to our engineers.  ### LinkYou may check pictures and more details via this link.More details  The food order bot code structure is bad, I put all functions into one file. I didn&#39;t have a good feeling of how to keep a good project structure at that time. But my newer projects structure are much better, like [goRainbow](https://github.com/HarbinZhang/goRainbow), it has pipeline, modules, utils and protocol packages.",
+      "url": "/projects/2018/09/01/food-order-bot/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2017-08-23-timego": {
+      "title": "TimeGo",
+      "content"	 : "This is an Android APP published on Google Play.  You can search for it by the keyword &quot;TimeGo&quot;.  Or you can click here : )  Update(4/9): The App has been blocked because of *Violation of Usage of Android Advertising ID policy*. I&#39;m busy working with other stuff currently, I will update a new App with qualified policy later.## I built this APP is because there isn&#39;t a right APP to solve my problem.#### Why is this a bad design?This is one of the most common APPs about time tracking in google play.You clicked an icon, the timer starts recording. When you finished your activity, you clicked the stop button. Then this activity and its duration has been recorded.  But there is a common problem: I always forget to start or end an activity recording, so the time tracking is not precise, and therefore it is annoying.## How to solve this problem?Raised an idea from &quot;time billing&quot; of Alexander Alexandrovich Lyubishchev.  The key is to record the time cost of each activity after the things done or at a certain moment. In this way, the time tracking is easier and more precise.## What does it look like?  - The adding fragment screen is like:  And I provided the emotion options for users, which can be defined as an efficiency options. Because I think 100% efficiency in 30 minutes is still much better than 10% efficiency in 3 hours.  So, these options can help users to find out during which time slot they can get a better performance.  - The dash board: This is a pie chart. Day, week and month options are provided.This is a line chart. Users can see how the time costing trends they spent in the last week.  - Intro to App  To let it used easier for users, provide intro-to-APP part. It shows when the user open TimeGo in the first time, Or when users click &quot;help&quot; button.- Feedback  Provide feedback choice for users, and users can talk their ideas with me. I think this communication way is better for us to talk with each other, to have a deeper understanding about what this product shoule be.  - The Accounts  TimeGo provided online database based on the Google firebase to sync data from different platform.  So, we have Sign in option:And Sign up option:## Summary  I love this APP, I always think of ways to improve it.  And I&#39;m still working on it. I have so many ideas which I want to implment. But the time is limited, I need to get focused on the most essential thing. Hope it may help your life well. : )",
+      "url": "/projects/2017/08/23/TimeGo/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2017-08-19-nova-android": {
+      "title": "NOVA (Internship)",
+      "content"	 : "## IntroduceThis is a demo.  The most challenging part is at the bottom. And all things following are developed by myself.The goal is to build an Android APP for users and a web server for doctors. These functions are provided:  1. Doctors can set medicine reminder for their patients.  2. Users can set appointment with their doctors.  3. Users can get their vital data (E.g Blood pressure) from iHealth products.  ## Medicine ReminderDoctors can add/modify medicine reminder. Android APP will update it from online database, and set reminder alarm automatically.When the reminder alarms, it shows like this first:After users clicked &quot;OK&quot;, it will enter into the medicine detail screen, which like this:You can see that, the alarming medicine&#39;s button is red, to remind users which one should be taken. After users clicked the red button, the button becomes grey, which means users have taken this medicine. Like this:When there is another reminder alarms, the same progress will be executed again. But the privious status will be recorded. Like this:In this way, we can gather whether users have taken their medicine on time, and display this information in our web server.The &quot;Y&quot; here means the user has taken his/her medicine. This screen is so ugly. I know that, but this is for some professional user like doctors. So this UI is not the most important thing to solve.  ## AppointmentIn appointment part, users can see doctors available time and set an appointment with their doctor. When they enter into &quot;Appointment&quot;, the doctor&#39;s available time will show first, like:And users cannot set an appointment in inaviable time of their doctor&#39;s.The confirmation will show after long pressing at a time slot.And you can cancel an appointment by long pressing at it.You cannot set an appointment which has been reserved by others. So, invalid reserved time slot will show as &quot;occupied&quot;:This is a doctor&#39;s view of appointment:## Vital dataBy connecting iHealth products, we can help user get their vital data.## The most challenging partThe first design version is:It&#39;s easy to implement, the database table is just like the column name.  And the second version is:Only today&#39;s medicine reminders are shown.  And manager required that the medicine should be reminded at intervals(like in two days), rather than weekday.  It is hard to implement, because database cannot query today&#39;s reminders directly.  #### The basic idea is to set a start date and remind period.  When users enter into medicine reminder, database will get all data and calculate whether each reminder should be shown on the screen or not.  This way is bad, because we do so much searching outside of database. For we are using online database, it will cost a lot on data transfer. The database should provide the items we need directly.   #### The second idea is to set a next remind date, and update it after it&#39;s shown.  This way can save data traffic, we don&#39;t need to query all data in database, just the data we need. But we still need to write to the database everytime we used the data.  #### finally, I designed a distributed database for this problem.The online database just keep the start date and its period. When doctors add or update a medicine reminder, the local database will receive this signal and compute all reminder dates, each one will be inserted into local database as a single record.  - Just like // online databasename:medicineA startDate:2017/10/12 period:2 duration:1week// local database should look likename:medicineA remindDate:2017/10/12name:medicineA remindDate:2017/10/14name:medicineA remindDate:2017/10/16name:medicineA remindDate:2017/10/18In this way, we can get the results we need directly and don&#39;t need to update the database every time when we query it. The online database only stores the useful data such as user information. In this design, we use local computing and storage resources as many as possible, which can save the data traffic and our website cost. I think in this way, the system becomes more scalable.## summaryThis is the main screen of Android APP. (This part is made by others)I have developed Medicine reminders, Appointments, user login, sign up, emergency call, Access healthcare records, measure vitals. The first two are big parts. The rest of them are easy.",
+      "url": "/projects/2017/08/19/NOVA-Android/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2017-01-04-scawler": {
+      "title": "Info from Linkedin",
+      "content"	 : "I want to find out the relationship between linkedin users and the possibility they are willing to help me to push resume. Then I can get suggestions from this system about which user would be better choice for me to link in.# Part 1Multi-process scawlers, sending jobs to master, and master assigned jobs to workers. Save users profile into mongodb. MapReduce with mongodb to analyse data.### Initial stateAt first, &quot;python master.py&quot; to start master process, and master will build workers based on the number of accounts it received. Each worker would receive an account and its password. When worker finished login into the linkedin account, it sent the &quot;ready&quot; message to the master.Workers use phantomJS to access linkedin user profiles.### pre-load to remove duplicationuse user_id to determine whether the current user has been dealed or not. Pre-load user-profile page, if user_id already exists in database, the current user would be skipped.### ShutdownYou can send &quot;shutdown&quot; signal to the master.### fault-toleranceWhen number of errors reached the bar, the master will shutdown workers, and backup urls in the master to disk, and record current information into logfile to analyse.### databaseRecord these information about users:  - url_id(as the primary key)  - name, current_company, locality, edu, title, industry  - skills, backgrounds(These include several sub contents)  # ProblemIt seems that Linkedin constrains accounts when the same IP visited its website too many times. I extended the time delay, but it cannot work.  I&#39;m trying to use different IP proxy from IP pool to visit different users profile.    I&#39;m still working on it.",
+      "url": "/projects/2017/01/04/Scawler/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2017-01-03-photo-studio": {
+      "title": "3D Photo Studio (Entrepreneurship)",
+      "content"	 : "Leader, Established Yi-Ben Three Dimensions Tech Co.,LtdProvided technologies to ordinary photo studio, obtained data to establish models, printed and painted, and then delivered to customers.  - Used capture dimension technology to capture images, established 3D models.  - Made 3D printer based on RepRap with the accuracy of 0.3mm.  - Designed a support for photo studio, enabled the image capture be finished in 40s with 3 cameras.  You know, there are some 3D photo studios around us. They can help people to form themselves in small models. This is a good catch, especially in wedding. If you have the other half and yourself in wedding dresses, shown up above the wedding cake in about 10 inch, that would be a supprise to everyone and an amazing memory for yours.We provide the same service, but in a better way.    In a more efficient way.  Traditional 3D photo studios use machines to print colors for models.  But we don&#39;t,  We only print the colourless model. And find the optimal printers to do the face-printing thing.  Traditional 3D photo studios use handheld device to detect data of people. This always takes about 3 minutes or more. During this time, customer need to keep his/her poristion. And it is a bad user experience.However, We use capture dimension technology, use 3 camers to capture about 60 pictures, only need to wait for it to turn around the customer. It only takes 40s. So, it brings a good user experience.And it can catch the moment which requests strictly in low delay.Finally, Traditional 3D photo studios allocate all machines and all workers in a place, which cost a lot.But we don&#39;t, We cooprate with local wedding photography, provide 3D photo service for customers with them, using their cameras to get the data, and then build and print the model of customer. After printer done their face-making job, we will send the model to its customer. In this way, we don&#39;t need to book a new place, and we can use the resources of wedding photography. So, you see, it can save a lot for us : )",
+      "url": "/projects/2017/01/03/Photo-Studio/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2017-01-02-3d-printer": {
+      "title": "3D Printer",
+      "content"	 : "Based on Reprap architecture, heating PLA (plastic) to melt and cooling to solidify.Printing.Rabbit.DragonThe weight of our printed portrait.",
+      "url": "/projects/2017/01/02/3D-Printer/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2017-01-01-3d-color-laser-scanner": {
+      "title": "3D Color Laser Scanner",
+      "content"	 : "Obtained the cloud of points by laser &amp; 360◦ scan, fitted to curved surface by Matlab and obtained the 3D model. Integrated the color information with coordinates.- Scanning time 3min, accuracy 0.1mm, scan area 15*15*20(cm).- Color resolution of 256-level of each primary color in RGB format.Initially, establish the data set of point cloud. (There are some dead points)Remove the dead points(which typical info is bad).The data of point cloud are fitted to obtain a smoother point set.Build the 3D model.Collect color information.The original thing.The effect we get in the end.And, There is another way to get the data model.We found we can get a better result by using red background.And this is the result we get. ",
+      "url": "/projects/2017/01/01/3D-Color-Laser-Scanner/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2016-12-30-audio-processing-system": {
+      "title": "Reconfigurable Digital Audio Processing System",
+      "content"	 : "Leader,Innovation project mentored by Prof. Li HuiyongStereo of Electrical Guitar and relevant development. Amplified the signal, collected and processed with FPGA technology to realize various effects. Timely switched filters to realize the processing of audio data.  - Designed and welded the power supply, power amplifier circuit and loudspeaker. Adopted tube preamp andprofessional audio power amplifier chip to realize better effects.- Used Matlab to generate filter coefficients, imported them to FPGA and processed audio data with different filters, realized various effects.- Tried pre-wiring, modified HDL files and employed Bitstream to reconfigure. But failed : )The front stage by Electronic tube:Power amplifier:Running on me desk:Using FPGA and AD/DA to get and output electronic wave. Using filter made by FPGA to modify the sound effect.It can amplify electronic guiter&#39;s sound.It&#39;s the wave of electronic guiter&#39;s sound.Big sounder",
+      "url": "/projects/2016/12/30/Audio-Processing-System/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    ,
+  
+
+    "projects-2016-12-29-joint-platform": {
+      "title": "Joint Development Platform",
+      "content"	 : "Leader, Electronic Sci. &amp; Tech. Research InstituteEmployed FPGA technology to drive the camera to get data, displayed it on the VGA, then transferred them to STM32 and stored in SD card with the format of FAT32.  - Established NIOS core to control the camera, VGA and SARAM modes.  - Self-defined communication protocol, made FPGA become the co-processor of STM32.  FPGA is good at data computing and ARM is good at control. So, we want to build a joint platform which ARM and FPGA can do they are good at.(I&#39;m responsible for the FPGA part.)Use FPGA to drive CMOS image sensors, get image data, and cache it into the SDRAM. ARM loads these data from SDRAM, and then determine what to do depended on what we need. In this project, we used ARM stored these data into SD card as FAT32.This is the RTL of FPGA:This is the platform:",
+      "url": "/projects/2016/12/29/Joint-Platform/",
+      "author": "Haibin",
+      "categories": "projects"
+    }
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+}
