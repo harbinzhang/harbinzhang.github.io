@@ -15,9 +15,45 @@ So, This bot would remind all engineers in food channel to order and also remind
 
 Besides, the bot would send a food review after lunch to gather reviews from engineer. In this way, we may get suggestions which restaurant is more fit to our engineers.  
 
+### start
+<div style="text-align:center"><img src= "{{ "/img/projects/food-order-bot/order.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+### remind
+1. food-order-bot reminds people in channel 10 minutes(adjustable) before order close.
+2. food-order-bot reminds people who start this order to close the order.
+<div style="text-align:center"><img src= "{{ "/img/projects/food-order-bot/reminder.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+### review
+1. Provides 4 options for people to review.
+2. Only 1 review for each person.
+3. Review feedback is sent by ephemeral message "Only visible to you".
+<div style="text-align:center"><img src= "{{ "/img/projects/food-order-bot/rate.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+### review result
+<div style="text-align:center"><img src= "{{ "/img/projects/food-order-bot/review.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+### full view
+1. Everyone can use food-order-bot to start order-reminder.
+2. Only person who starts it will receive close-order reminder.
+<div style="text-align:center"><img src= "{{ "/img/projects/food-order-bot/full.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+# Implementation
+### High level
+food-order-bot is using: 
+1. python flask server to handle user request.
+2. sqlite3 to store users' review and restaurants' overall review.
+3. docker to build service.
+### flask
+The slack-bot is a HTTP server handling three HTTP req:
+1. "challenge": It is for slack bot verification.
+2. "json": It is a trigger for bot scheduling event.
+3. "payload": It is a button event for people reviews.
+### sqlite3
+1. database structure.
+    1. users' review
+    2. restaurant review.
+### docker
+1. [Dockerfile](Dockerfile)
+
+
 ### Link
 You may check pictures and more details via this link.
 <a href="https://github.com/HarbinZhang/food-order-bot" style="color: rgb(0,102,204)">More details</a>  
 
 <br>
-The food order bot code structure is bad, I put all functions into one file. I didn't have a good feeling of how to keep a good project structure at that time. But my newer projects structure are much better, like [goRainbow](https://github.com/HarbinZhang/goRainbow), it has pipeline, modules, utils and protocol packages.
+The food order bot code structure is bad, I put all functions into one file. I didn't have a good feeling of how to keep a good project structure at that time. The newer projects structure are much better, like [goRainbow](https://github.com/HarbinZhang/goRainbow), it has pipeline, modules, utils and protocol packages.
