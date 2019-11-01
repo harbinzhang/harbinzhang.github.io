@@ -20,18 +20,18 @@ Besides, the bot would send a food review after lunch to gather reviews from eng
 ### remind
 1. food-order-bot reminds people in channel 10 minutes(adjustable) before order close.
 2. food-order-bot reminds people who start this order to close the order.
-<div style="text-align:center"><img src= "{{ "/img/projects/food_order_bot/reminder.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<div style="text-align:center"><img src= "{{ "/img/projects/food_order_bot/reminder.png " | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;"></div>
 ### review
 1. Provides 4 options for people to review.
 2. Only 1 review for each person.
 3. Review feedback is sent by ephemeral message "Only visible to you".
-<div style="text-align:center"><img src= "{{ "/img/projects/food_order_bot/rate.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<div style="text-align:center"><img src= "{{ "/img/projects/food_order_bot/rate.png " | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;"></div>
 ### review result
-<div style="text-align:center"><img src= "{{ "/img/projects/food_order_bot/review.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<div style="text-align:center"><img src= "{{ "/img/projects/food_order_bot/review.png " | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;"></div>
 ### full view
 1. Everyone can use food-order-bot to start order-reminder.
 2. Only person who starts it will receive close-order reminder.
-<div style="text-align:center"><img src= "{{ "/img/projects/food_order_bot/full.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
+<div style="text-align:center"><img src= "{{ "/img/projects/food_order_bot/full.png " | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;"></div>
 # Implementation
 ### High level
 food-order-bot is using: 
