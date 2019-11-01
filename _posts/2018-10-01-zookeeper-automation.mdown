@@ -38,15 +38,12 @@ Basically, I choose their IP as the common key, and their ID can be determined b
 Zookeepers get their "static" IP, associate it and get all other zookeepers "static" IPs. All zookeepers sort their "static" IP and get the same ordered list. Then each zookeeper can generate their unique myid based on their IP order in the sorted list.
 
 ### eip(Elastic IP)
-![Alt text](images/eip.png?raw=true "eip")
 <div style="text-align:center"><img src= "{{ "/img/projects/zookeeper_automation/eip.png " | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;"></div>
 This idea is using Elastic IP as a static IP.
 ### eni(Elastic Network Interface)
-![Alt text](images/eni.png?raw=true "eni")
 <div style="text-align:center"><img src= "{{ "/img/projects/zookeeper_automation/eni.png " | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;"></div>
 This idea is using eni(the secondary private IP) as a static IP.
 ### private_ip(dynamic config file)
-![Alt text](images/private_ip.png?raw=true "private_ip")
 <div style="text-align:center"><img src= "{{ "/img/projects/zookeeper_automation/private_ip.png " | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;"></div>
 This idea is using the newer version of zookeeper(3.5.0+) to enable the dynamic reconfiguration feature.
 ### Link
