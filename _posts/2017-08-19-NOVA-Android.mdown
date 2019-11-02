@@ -2,7 +2,7 @@
 layout:     post
 title:      NOVA (Internship)
 author:     Haibin
-tags: 		Android Web firebase
+tags: 		Android Web Firebase
 subtitle:  	Software developer intern in Summer 2017
 category:  projects
 ---

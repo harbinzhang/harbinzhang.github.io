@@ -2,7 +2,7 @@
 layout:     post
 title:      Zookeeper Automation
 author:     Haibin
-tags:		github distriuted-system python
+tags:		github distriuted-system python AWS
 subtitle:  	determine their own id, and provide host IP to each other
 category:  projects
 ---
