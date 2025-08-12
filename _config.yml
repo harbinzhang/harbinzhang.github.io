@@ -1,6 +1,6 @@
 # Site settings
 title: Haibin Zhang
-description: "Happy finding you here"
+description: "Software Engineer | Distributed Systems | Open Source Contributor"
 url: "http://www.harbinfate.com"
 
 
@@ -27,7 +27,7 @@ markdown: kramdown
 highlighter: rouge
 permalink: pretty
 paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","vendor"]
 
 # Jekyll Settings
 

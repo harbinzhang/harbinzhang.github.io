@@ -6,18 +6,18 @@ tags: 		Android Web Firebase
 subtitle:  	Software developer intern in Summer 2017
 category:  projects
 ---
-## Introduce
-This is a demo.  
-The most challenging part is at the bottom. And all things following are developed by myself.
+## Introduction
+This is a demo project showcasing my work as a software developer intern.  
+The most challenging part is described at the bottom, and all the following features were developed by me.
 
-The goal is to build an Android APP for users and a web server for doctors. These functions are provided:  
-1. Doctors can set medicine reminder for their patients.  
-2. Users can set appointment with their doctors.  
-3. Users can get their vital data (E.g Blood pressure) from iHealth products.  
+The goal was to build an Android app for patients and a web server for doctors. The system provides these functions:  
+1. Doctors can set medicine reminders for their patients  
+2. Patients can schedule appointments with their doctors  
+3. Patients can retrieve vital data (e.g., blood pressure) from iHealth products  
 
 
 ## Medicine Reminder
-Doctors can add/modify medicine reminder. Android APP will update it from online database, and set reminder alarm automatically.
+Doctors can add and modify medicine reminders. The Android app updates from the online database and sets reminder alarms automatically.
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/medicine.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
@@ -25,49 +25,49 @@ When the reminder alarms, it shows like this first:
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/alarmReminder.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
-After users clicked "OK", it will enter into the medicine detail screen, which like this:
+After users click "OK", the app enters the medicine detail screen, which looks like this:
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/alarmIn.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-You can see that, the alarming medicine's button is red, to remind users which one should be taken. After users clicked the red button, the button becomes grey, which means users have taken this medicine. Like this:
+The alarming medicine's button is red to remind users which medication should be taken. After users click the red button, it becomes grey, indicating the medicine has been taken:
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/alarmAfter.png " | prepend: site.baseurl }}" style="width: 40%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-When there is another reminder alarms, the same progress will be executed again. But the privious status will be recorded. Like this:
+When another reminder alarms, the same process executes again, but the previous status is recorded:
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/alarmRe.png " | prepend: site.baseurl }}" style="width: 20%; margin-left: 20%; margin-right: 20%;"></div>
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/alarmReAfter.png " | prepend: site.baseurl }}" style="width: 20%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
 
-In this way, we can gather whether users have taken their medicine on time, and display this information in our web server.
+This approach allows us to track whether patients have taken their medicine on time and display this information on the web server.
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/medicine_status.png " | prepend: site.baseurl }}" style="width: 100%; "></div>
 <br>
-The "Y" here means the user has taken his/her medicine. 
-This screen is so ugly. I know that, but this is for some professional user like doctors. So this UI is not the most important thing to solve.  
+The "Y" indicates that the patient has taken their medicine. 
+While this interface isn't visually polished, it's designed for healthcare professionals where functionality takes priority over aesthetics.  
 
 ## Appointment
-In appointment part, users can see doctors available time and set an appointment with their doctor. When they enter into "Appointment", the doctor's available time will show first, like:
+In the appointment section, patients can view their doctor's available times and schedule appointments. When they enter "Appointment", the doctor's available times are displayed first:
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/appointmentInit.png " | prepend: site.baseurl }}" style="width: 60%; "></div>
 <br>
-And users cannot set an appointment in inaviable time of their doctor's.
+Patients cannot schedule appointments during their doctor's unavailable times.
 
 
-The confirmation will show after long pressing at a time slot.
+A confirmation dialog appears after long-pressing a time slot.
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/appointment.png " | prepend: site.baseurl }}" style="width: 60%; "></div>
 <br>
 
-And you can cancel an appointment by long pressing at it.
+You can cancel an appointment by long-pressing on it.
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/appointmentCancel.png " | prepend: site.baseurl }}" style="width: 60%; "></div>
 <br>
 
-You cannot set an appointment which has been reserved by others. So, invalid reserved time slot will show as "occupied":
+You cannot book time slots already reserved by other patients. These unavailable slots are marked as "occupied":
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/occupied.png " | prepend: site.baseurl }}" style="width: 60%; "></div>
 <br>
 
-This is a doctor's view of appointment:
+This is the doctor's appointment view:
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/appointmentDoctor.png " | prepend: site.baseurl }}" style="width: 100%; "></div>
 <br>
 
 ## Vital data
-By connecting iHealth products, we can help user get their vital data.
+By connecting iHealth products, we can help patients retrieve their vital data.
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/ihealth.png " | prepend: site.baseurl }}" style="width: 40%; "></div>
 <br>
 
@@ -75,24 +75,24 @@ By connecting iHealth products, we can help user get their vital data.
 The first design version is:
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/reminder_old.png " | prepend: site.baseurl }}" style="width: 60%; "></div>
 <br>
-It's easy to implement, the database table is just like the column name.  
+This was easy to implement, as the database table structure directly matched the display columns.  
 And the second version is:
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/reminder_new.png " | prepend: site.baseurl }}" style="width: 60%; "></div>
 <br>
 Only today's medicine reminders are shown.  
-And manager required that the medicine should be reminded at intervals(like in two days), rather than weekday.  
+Management required that medications should be reminded at specific intervals (e.g., every two days) rather than on specific weekdays.  
 
-It is hard to implement, because database cannot query today's reminders directly.  
+This was challenging to implement because the database couldn't query today's reminders directly.  
 
-#### The basic idea is to set a start date and remind period.  
-When users enter into medicine reminder, database will get all data and calculate whether each reminder should be shown on the screen or not.  
-This way is bad, because we do so much searching outside of database. For we are using online database, it will cost a lot on data transfer. The database should provide the items we need directly.   
+#### The basic approach: set a start date and reminder period  
+When users enter the medicine reminder section, the database retrieves all data and calculates whether each reminder should be displayed.  
+This approach is inefficient because it requires extensive processing outside the database. Since we're using an online database, this creates significant data transfer costs. The database should provide only the needed items directly.   
 
-#### The second idea is to set a next remind date, and update it after it's shown.  
-This way can save data traffic, we don't need to query all data in database, just the data we need. But we still need to write to the database everytime we used the data.  
+#### The second approach: set next reminder date and update after display  
+This approach saves data traffic by querying only needed data rather than everything. However, it still requires database writes every time the data is accessed.  
 
-#### finally, I designed a distributed database for this problem.
-The online database just keep the start date and its period. When doctors add or update a medicine reminder, the local database will receive this signal and compute all reminder dates, each one will be inserted into local database as a single record.  
+#### Finally, I designed a distributed database solution
+The online database stores only the start date and period. When doctors add or update medicine reminders, the local database receives this signal and computes all reminder dates, inserting each as a single record in the local database.  
 
 - Just like 
 <pre><code class="language-java">// online database
@@ -104,16 +104,16 @@ name:medicineA 		remindDate:2017/10/14
 name:medicineA 		remindDate:2017/10/16
 name:medicineA 		remindDate:2017/10/18
 </code></pre>
-In this way, we can get the results we need directly and don't need to update the database every time when we query it. The online database only stores the useful data such as user information. 
+This approach allows us to get results directly without updating the database on every query. The online database stores only essential data such as user information. 
 
-In this design, we use local computing and storage resources as many as possible, which can save the data traffic and our website cost. I think in this way, the system becomes more scalable.
+This design maximizes the use of local computing and storage resources, reducing data traffic and server costs. This approach makes the system more scalable.
 
-## summary
+## Summary
 
-This is the main screen of Android APP. (This part is made by others)
+This is the main screen of the Android app (this component was developed by other team members):
 <div style="text-align:center"><img src= "{{ "/img/projects/nova/main.png " | prepend: site.baseurl }}" style="width: 60%; "></div>
 <br>
 
-I have developed Medicine reminders, Appointments, user login, sign up, emergency call, Access healthcare records, measure vitals. 
+I developed the following features: medicine reminders, appointments, user login, sign up, emergency call, healthcare records access, and vital measurements.
 
-The first two are big parts. The rest of them are easy.
+The medicine reminders and appointments were the major components, while the others were more straightforward to implement.

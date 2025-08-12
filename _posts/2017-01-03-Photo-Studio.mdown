@@ -3,57 +3,52 @@ layout:     post
 title:      3D Photo Studio (Entrepreneurship)
 author:     Haibin
 tags: 		3D Scanner Printer
-subtitle:  	When we were Junior, and it's great
+subtitle:  	A junior year entrepreneurship venture
 category:  projects
 ---
 
 
-Leader, Established Yi-Ben Three Dimensions Tech Co.,Ltd
+As team leader, I established Yi-Ben Three Dimensions Tech Co., Ltd.
 
 
-Provided technologies to ordinary photo studio, obtained data to establish models, printed and painted, and then delivered to customers.  
-- Used capture dimension technology to capture images, established 3D models.  
-- Made 3D printer based on RepRap with the accuracy of 0.3mm.  
-- Designed a support for photo studio, enabled the image capture be finished in 40s with 3 cameras.  
+We provided 3D scanning technology to traditional photo studios, captured data to create 3D models, printed and painted them, then delivered the finished products to customers.  
+- Used photogrammetry technology to capture images and create 3D models  
+- Built a 3D printer based on RepRap with 0.3mm accuracy  
+- Designed a camera rig for photo studios that enabled 40-second image capture using 3 cameras  
 
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_photo/00.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
-<p>You know, there are some 3D photo studios around us. They can help people to form themselves in small models. This is a good catch, especially in wedding. If you have the other half and yourself in wedding dresses, shown up above the wedding cake in about 10 inch, that would be a supprise to everyone and an amazing memory for yours.</p>
+<p>3D photo studios create miniature models of people, which is particularly popular for weddings. Having a 10-inch model of the couple in wedding attire displayed on the wedding cake creates a memorable surprise for everyone.</p>
 <br>
 <p>
-We provide the same service, but in a better way.  
-<br>  
-In a more efficient way.  
+We provided the same service, but with significant improvements in efficiency and quality.
 </p>
 <br>
 <p>
-Traditional 3D photo studios use machines to print colors for models.  
+Traditional 3D photo studios use expensive machines to print models with integrated colors.  
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_photo/1.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-But we don't,  <br>
+Our approach was different:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_photo/2.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
-We only print the colourless model. And find the optimal printers to do the face-printing thing.  
+We printed colorless models and partnered with specialized printers for high-quality face printing.  
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_photo/3.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 </p>
 <br>
 
 
-Traditional 3D photo studios use handheld device to detect data of people. This always takes about 3 minutes or more. During this time, customer need to keep his/her poristion. <br>
-And it is a bad user experience.
+Traditional 3D photo studios use handheld scanning devices that require 3+ minutes of data collection. Customers must maintain their position throughout this process, creating a poor user experience.
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_photo/4.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
-However, We use capture dimension technology, use 3 camers to capture about 60 pictures, only need to wait for it to turn around the customer. It only takes 40s. 
+Our photogrammetry system uses 3 cameras to capture approximately 60 images as the rig rotates around the customer. This process takes only 40 seconds. 
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_photo/5.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
-So, it brings a good user experience.
+This dramatically improves the user experience.
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_photo/6.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
-And it can catch the moment which requests strictly in low delay.
+The system can capture precise moments with minimal delay requirements.
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_photo/7.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 
 
 <p>
-Finally, <br>
-Traditional 3D photo studios allocate all machines and all workers in a place, which cost a lot.
+Traditional 3D photo studios require significant capital investment for dedicated facilities and equipment.
 <br><br>
-But we don't, <br>
-We cooprate with local wedding photography, provide 3D photo service for customers with them, using their cameras to get the data, and then build and print the model of customer. After printer done their face-making job, we will send the model to its customer. In this way, we don't need to book a new place, and we can use the resources of wedding photography. 
+Our business model was different: we partnered with local wedding photographers to provide 3D photo services. We used their existing cameras to capture data, then processed and printed the models off-site. After completing the printing and painting, we delivered the finished products directly to customers. This approach eliminated the need for dedicated retail space while leveraging existing photography resources.
 </p>
 
-So, you see, it can save a lot for us : )
+This model significantly reduced our operational costs and overhead.

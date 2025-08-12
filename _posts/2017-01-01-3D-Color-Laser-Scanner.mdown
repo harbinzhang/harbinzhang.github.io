@@ -3,47 +3,49 @@ layout:     post
 title:      3D Color Laser Scanner
 author:     Haibin
 tags: 		3D Scanner
-subtitle:  	When we were freshmen
+subtitle:  	Built during freshman year
 category:  projects
 ---
 
-Obtained the cloud of points by laser & 360◦ scan, fitted to curved surface by Matlab and obtained the 3D model. Integrated the color information with coordinates.
+This 3D scanner captures point clouds using laser scanning with 360° rotation. The data is processed in MATLAB to fit curved surfaces and generate 3D models, with color information integrated into the coordinate data.
 
-- Scanning time 3min, accuracy 0.1mm, scan area 15*15*20(cm).
-- Color resolution of 256-level of each primary color in RGB format.
+- Scanning time: 3 minutes
+- Accuracy: 0.1mm
+- Scan area: 15×15×20 cm
+- Color resolution: 256 levels per RGB channel
 
 
-Initially, establish the data set of point cloud. (There are some dead points)
+Initial point cloud data capture (note the presence of erroneous data points):
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/p1.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-Remove the dead points(which typical info is bad).
+Filtering out erroneous data points:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/p2.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
-The data of point cloud are fitted to obtain a smoother point set.
+Point cloud data fitting to create a smoother surface:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/p3.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
-Build the 3D model.
+Generated 3D model:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/p4.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
-Collect color information.
+Color data integration:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/p5.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
-The original thing.
+Original scanned object:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/p7.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-The effect we get in the end.
+Final scanning result:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/p8.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-And, There is another way to get the data model.
+Alternative scanning approach:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/catch1.jpg " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/catch2.jpg " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
-We found we can get a better result by using red background.
+We discovered that using a red background significantly improves scanning results:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_scanner/catch3.jpg " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
-And this is the result we get.
+Final result with improved background:
 
 <!-- <div style="text-align:center"><object width="100%" height="40%" data="{{ "/img/projects/3d_scanner/kk.swf " | prepend: site.baseurl }}"></object></div> -->
 <div style="text-align:center"><embed volumn = "0" AUTOSTART = "false" src = "{{ "/img/projects/3d_scanner/kk.swf " | prepend: site.baseurl }}" > </div>

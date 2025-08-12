@@ -30,9 +30,9 @@ Here is my inspection of Burrow source code <a href="https://github.com/HarbinZh
 ### Burrow Rainbow service
 I am responsible for Burrow service, including Dockerfile, Ansible, Jenkinsfile for CICD, goRainbow and wavefront(metrics) dashboard.  
 
-The main work is about goRainbow, which pulls information from Burrow, translates it into metrics, and sends it to the wavefront. 
+The main work involves goRainbow, which pulls information from Burrow, translates it into metrics, and sends them to Wavefront. 
 
-I implemented push-model rainbow(waiting for Burrow message) at first, but got some problem, the Burrow notifier is not stable all the time. After discussed with colleagues, I implemented pull-model rainbow(actively pull information from Burrow) and now it works much better.  
+I initially implemented a push-model rainbow (waiting for Burrow messages), but encountered stability issues with the Burrow notifier. After discussing with colleagues, I implemented a pull-model rainbow (actively pulling information from Burrow), which now works much more reliably.  
 
 ### goRainbow
 goRainbow gets basic Kafka information, calculates needed data, translates it into metrics and sent to Wavefront(metrics dashboard).
@@ -55,15 +55,15 @@ We mainly focus on go-Rainbow here. go-Rainbow needs to provide three functions:
 <div style="text-align:center"><img src= "{{ "/img/projects/burrow/topic_handler_structure.png" | prepend: site.baseurl }}" style="width: 100%; margin-left: 0%; margin-right: 0%;"></div>
 It's similar to the Consumer structure.  
 
-### Features worthy mention
-1. Heath-check: It provides health-check HTTP service so that AWS can auto restart Burrow-goRainbow when the service is unavailable.
+### Notable Features
+1. Health-check: It provides a health-check HTTP service so that AWS can automatically restart Burrow-goRainbow when the service is unavailable.
 2. ~~Dynamic metrics sending:~~ (update: I disabled this feature to simplify the project and trade-off for other features)
-   1. It sends partition level metrics when lag exists(lag > 0), otherwise doesn't send. It saves a lot traffic.
+   1. It sends partition-level metrics when lag exists (lag > 0), otherwise doesn't send. This saves significant traffic.
    2. It guarantees every metric ends with 0, which behaves better in wavefront.
    3. It sends metrics per 30s when metrics change and per 60s for unchanged metrics.  
 3. Traffic Statistics: goRainbow has traffic statistics, like the number of metrics sent, exceptions etc.
-4. Traffic saving calculation: (saves at least 85% data traffic)  
-Until March 2019, we have:
+4. Traffic Savings Calculation: (saves at least 85% data traffic)  
+As of March 2019, we have:
    1. 25 consumer groups are using our Kafka service.   
    2. 64 partitions for each topic.   
    3. Basically, 3 metrics for each partition level lag. (offset, startOffset, endOffset).  

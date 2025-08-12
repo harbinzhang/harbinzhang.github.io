@@ -2,38 +2,37 @@
 layout:     post
 title:      Reconfigurable Digital Audio Processing System
 author:     Haibin
-tags: 		FPGA Audio Guiter
-subtitle:  	self-interetsed, just like Guitar amplifier
+tags: 		FPGA Audio Guitar
+subtitle:  	A personal project: digital guitar amplifier
 category:  projects
 ---
-Leader,Innovation project mentored by Prof. Li Huiyong
+Team leader for an innovation project mentored by Prof. Li Huiyong
 
 
 
-Stereo of Electrical Guitar and relevant development. Amplified the signal, collected and processed with FPGA technology to realize various effects. Timely switched filters to realize the processing of audio data.  
-- Designed and welded the power supply, power amplifier circuit and loudspeaker. Adopted tube preamp and
-professional audio power amplifier chip to realize better effects.
-- Used Matlab to generate filter coefficients, imported them to FPGA and processed audio data with different filters, realized various effects.
-- Tried pre-wiring, modified HDL files and employed Bitstream to reconfigure. But failed : )
+This project focused on electric guitar audio processing and amplification. The system amplifies guitar signals and processes them using FPGA technology to create various audio effects. Real-time filter switching enables dynamic audio processing.  
+- Designed and assembled the power supply, power amplifier circuit, and loudspeaker system. Integrated tube preamplification with professional audio power amplifier chips for enhanced sound quality
+- Generated filter coefficients in MATLAB and imported them to the FPGA for real-time audio processing with various effect filters
+- Attempted hardware reconfiguration through HDL modifications and bitstream updates, but this approach was unsuccessful
 
 
 
-The front stage by Electronic tube:
+Front-end tube amplification stage:
 <div style="text-align:center"><img src= "{{ "/img/projects/audio_system/1.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-Power amplifier:
+Power amplifier circuit:
 <div style="text-align:center"><img src= "{{ "/img/projects/audio_system/2.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-Running on me desk:
+Complete system setup:
 <div style="text-align:center"><img src= "{{ "/img/projects/audio_system/3.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-Using FPGA and AD/DA to get and output electronic wave. Using filter made by FPGA to modify the sound effect.
+The system uses FPGA with analog-to-digital and digital-to-analog converters to capture and output audio signals. FPGA-implemented filters modify the sound effects in real-time.
 <div style="text-align:center"><img src= "{{ "/img/projects/audio_system/1.jpg " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-It can amplify electronic guiter's sound.
+The system successfully amplifies electric guitar signals:
 <div style="text-align:center"><img src= "{{ "/img/projects/audio_system/2.jpg " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
-It's the wave of electronic guiter's sound.
+Electric guitar signal waveform analysis:
 <div style="text-align:center"><img src= "{{ "/img/projects/audio_system/4.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
-Big sounder
+High-powered speaker system:
 <div style="text-align:center"><img src= "{{ "/img/projects/audio_system/3.jpg " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
