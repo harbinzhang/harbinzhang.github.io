@@ -1,14 +1,30 @@
 ---
 layout:     post
-title:      Github
+title:      GitHub Portfolio
 author:     Haibin
-tags:		github
-subtitle:  	A link to github profile
+tags:		github open-source
+subtitle:  	Explore my open-source contributions and projects
 category:  link
 ---
 
-# My github 
-HarbinZhang  
+# GitHub Profile
 
-<a href="https://github.com/HarbinZhang?tab=repositories" style="color: rgb(0,102,204)">To Github : )</a>  
- 
+Welcome to my GitHub portfolio where I share my open-source contributions and personal projects.
+
+## What You'll Find
+
+- **Open-Source Tools**: Including goRainbow (Kafka monitoring) and other utilities
+- **System-Level Projects**: Operating systems, distributed systems implementations
+- **Full-Stack Applications**: Web services, mobile apps, and cloud-native solutions
+- **Academic Research**: Projects from coursework and research initiatives
+
+## Recent Focus Areas
+
+- Distributed systems monitoring and observability
+- Infrastructure automation tools
+- Microservices architecture patterns
+- Performance optimization solutions
+
+<a href="https://github.com/HarbinZhang?tab=repositories" style="color: rgb(0,102,204)">Visit My GitHub Profile →</a>
+
+Feel free to explore my repositories, contribute to open projects, or reach out for collaboration opportunities!

@@ -3,53 +3,53 @@ layout:     post
 title:      Info from Linkedin
 author:     Haibin
 tags: 		Crawler Multi-process MapReduce
-subtitle:  	a web crawler scanning data from Linkedin.
+subtitle:  	a web crawler for scanning data from LinkedIn
 category:  projects
 ---
 
-I want to find out the relationship between linkedin users and the possibility they are willing to help me to push resume. Then I can get suggestions from this system about which user would be better choice for me to link in.
+I wanted to analyze the relationship between LinkedIn users and their likelihood of helping with resume referrals. This system would provide suggestions about which users would be better candidates for networking connections.
 
 
 
 # Part 1
-Multi-process scawlers, sending jobs to master, and master assigned jobs to workers. Save users profile into mongodb. MapReduce with mongodb to analyse data.
+Multi-process crawlers send jobs to a master process, which assigns work to individual workers. User profiles are saved to MongoDB, and data analysis is performed using MapReduce operations.
 
 <div style="text-align:center"><img src= "{{ "/img/projects/scawler/initial_start.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
 ### Initial state
-At first, "python master.py" to start master process, and master will build workers based on the number of accounts it received. Each worker would receive an account and its password. When worker finished login into the linkedin account, it sent the "ready" message to the master.
-Workers use phantomJS to access linkedin user profiles.
+First, run "python master.py" to start the master process. The master creates workers based on the number of accounts provided. Each worker receives login credentials and sends a "ready" message to the master after successfully logging into LinkedIn.
+Workers use PhantomJS to access LinkedIn user profiles.
 <div style="text-align:center"><img src= "{{ "/img/projects/scawler/ready.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
 ### pre-load to remove duplication
-use user_id to determine whether the current user has been dealed or not. Pre-load user-profile page, if user_id already exists in database, the current user would be skipped.
+User IDs determine whether a profile has already been processed. The system pre-loads user profile pages and skips users whose IDs already exist in the database.
 <div style="text-align:center"><img src= "{{ "/img/projects/scawler/working.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
 ### Shutdown
-You can send "shutdown" signal to the master.
+You can send a "shutdown" signal to the master process.
 <div style="text-align:center"><img src= "{{ "/img/projects/scawler/shutdown.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
 
 ### fault-tolerance
-When number of errors reached the bar, the master will shutdown workers, and backup urls in the master to disk, and record current information into logfile to analyse.
+When the error count reaches the threshold, the master shuts down workers, backs up URLs to disk, and records current information to a log file for analysis.
 <div style="text-align:center"><img src= "{{ "/img/projects/scawler/fault_restart.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
 ### database
-Record these information about users:  
+The system records this information about users:  
 - url_id(as the primary key)  
 - name, current_company, locality, edu, title, industry  
-- skills, backgrounds(These include several sub contents)  
+- skills, backgrounds (these include several sub-categories)  
 <div style="text-align:center"><img src= "{{ "/img/projects/scawler/eg_db.png " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
 
 # Problem
-It seems that Linkedin constrains accounts when the same IP visited its website too many times. I extended the time delay, but it cannot work.  
-I'm trying to use different IP proxy from IP pool to visit different users profile.  
+LinkedIn appears to limit accounts when the same IP address visits too frequently. Extending time delays didn't resolve this issue.  
+I'm exploring the use of different IP proxies from an IP pool to access user profiles.  
   
-I'm still working on it.
+This project is still in development.

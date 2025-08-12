@@ -3,27 +3,27 @@ layout:     post
 title:      3D Printer
 author:     Haibin
 tags: 		3D Printer
-subtitle:  	When we were sophomore
+subtitle:  	Built during sophomore year
 category:  projects
 ---
 
 
-Based on Reprap architecture, heating PLA (plastic) to melt and cooling to solidify.
+Built using RepRap architecture, this 3D printer heats PLA plastic to its melting point and then cools it to solidify into the desired shape.
 
 <br>
-Printing.
+The printer in action:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_printer/3d_printer.jpg " | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
-Rabbit.
+A printed rabbit figurine:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_printer/rabbit.jpg" | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
-Dragon
+A detailed dragon model:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_printer/dragon1.jpg" | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_printer/dragon2.jpg" | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
 <br>
 
-The weight of our printed portrait.
+Weight measurement of a printed portrait model:
 <div style="text-align:center"><img src= "{{ "/img/projects/3d_printer/weight.jpg" | prepend: site.baseurl }}" style="width: 60%; margin-left: 20%; margin-right: 20%;"></div>
