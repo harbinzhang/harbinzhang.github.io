@@ -3,7 +3,7 @@ layout:     post
 title:      Reconfigurable Digital Audio Processing System
 author:     Haibin
 tags: 		FPGA Audio Guitar
-subtitle:  	A personal project: digital guitar amplifier
+subtitle:  	"A personal project - digital guitar amplifier"
 category:  projects
 ---
 Team leader for an innovation project mentored by Prof. Li Huiyong
