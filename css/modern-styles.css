@@ -58,14 +58,10 @@ body {
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
-  padding: 120px 0 80px;
+  padding: 80px 0 50px;
   text-align: center;
   color: #ffffff;
   animation: fadeInUp 0.8s ease-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 @keyframes fadeInUp {
@@ -94,8 +90,6 @@ body {
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;
-  display: block;
-  text-align: center;
 }
 
 .intro-header hr.small {
@@ -120,6 +114,59 @@ body {
   padding: 0.75rem 0;
 }
 
+.navbar-custom .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+.navbar-custom .navbar-header {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-custom .navbar-collapse {
+  display: flex;
+  align-items: center;
+  flex-basis: auto;
+  margin-left: auto;
+}
+
+.navbar-custom .navbar-nav {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+
+.navbar-custom .navbar-nav > li {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .navbar-custom .container-fluid {
+    flex-wrap: wrap;
+  }
+  
+  .navbar-custom .navbar-collapse:not(.in) {
+    display: none;
+    width: 100%;
+  }
+  
+  .navbar-custom .navbar-collapse.in {
+    display: block;
+    width: 100%;
+  }
+  
+  .navbar-custom .navbar-nav {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
 .navbar-custom .navbar-brand {
   font-weight: 700;
   font-size: 1.25rem;
@@ -133,12 +180,7 @@ body {
 }
 
 .navbar-custom .nav {
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 .navbar-custom .nav li a {
