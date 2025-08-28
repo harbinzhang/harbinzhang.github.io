@@ -173,6 +173,13 @@ body {
   color: var(--text-primary);
   text-decoration: none;
   transition: var(--transition);
+  /* Normalize vertical rhythm with right-side nav links */
+  height: auto;              /* override Bootstrap's 50px */
+  padding: 0.5rem 1rem;      /* match .nav li a */
+  line-height: 1;            /* avoid baseline drift */
+  display: flex;             /* center text/icon vertically */
+  align-items: center;
+  margin: 0;                 /* ensure no extra offset */
 }
 
 .navbar-custom .navbar-brand:hover {
