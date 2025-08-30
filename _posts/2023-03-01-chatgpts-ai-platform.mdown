@@ -29,7 +29,7 @@ I built ChatGPTs - a production-ready AI platform that combines multiple service
 - **Multi-language Support** across 5 languages
 - **Production-grade Infrastructure** on Kubernetes with auto-scaling
 
-The platform was deployed at **[mujaka.com](https://mujaka.com)** and **[harbinfate.com](https://harbinfate.com)** *(Note: Currently offline - API keys have been revoked for security. Deploy your own instance with the source code below.)*
+The platform was deployed at **[mujaka.com](https://mujaka.com)** *(Note: Currently offline - API keys have been revoked for security. Deploy your own instance with the source code below.)*
 
 ## Core Technologies Deep Dive
 
@@ -267,9 +267,8 @@ YouTube video processing with multi-language support.
 
 **⚠️ Note**: The production deployments are currently offline as all API keys have been revoked for security reasons. You can deploy your own instance using the source code below with your own API keys.
 
-Previous production URLs:
+Previous production URL:
 - <a href="https://mujaka.com" style="color: rgb(0,102,204)">mujaka.com</a> *(offline - keys revoked)*
-- <a href="https://harbinfate.com" style="color: rgb(0,102,204)">harbinfate.com</a> *(offline - keys revoked)*
 
 ## Source Code
 
