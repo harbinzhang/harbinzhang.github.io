@@ -1,6 +1,7 @@
 ---
 layout:     post
 title:      Barcode Food App - AI-Powered Restaurant Platform
+published:  false
 author:     Haibin
 tags:		React Firebase TypeScript Docker Testing Authentication State-Machine AI NLP LLM Gemini ML TensorFlow Image-Generation Cloud-Functions Playwright Vitest Monorepo
 subtitle:  	AI-driven platform with Gemini-powered features and enterprise-grade architecture
